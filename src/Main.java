@@ -10,9 +10,12 @@ public class Main {
         map.put(Integer.valueOf(number[0]), 0);
         map.put(Integer.valueOf(number[1]), 1);
         System.out.println(map.size());
+        //String result = new Main().countAndSay(5);
         System.out.println("done");
 
     }
+
+
 
 
 }
