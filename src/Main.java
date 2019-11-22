@@ -11,11 +11,16 @@ public class Main {
         map.put(Integer.valueOf(number[1]), 1);
         System.out.println(map.size());
         //String result = new Main().countAndSay(5);
+        String a = "110010";
+        String b = "10111";
+        //String num = new Main().addBinary(a, b);
+        char c = a.charAt(0);
+        int tc = Integer.valueOf(c);
+        int tb = Integer.parseInt(String.valueOf(c));
+        int te = c - '0';
         System.out.println("done");
 
     }
-
-
 
 
 }
