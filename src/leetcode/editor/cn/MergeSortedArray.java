@@ -1,4 +1,4 @@
- //给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 
+//给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
 //
 // 说明: 
 //
@@ -15,20 +15,50 @@
 //
 //输出: [1,2,2,3,5,6] 
 // Related Topics 数组 双指针
-  
-  package leetcode.editor.cn;
-  public class MergeSortedArray{
-      public static void main(String[] args) {
-           Solution solution = new MergeSortedArray().new Solution();
-      }
-      
 
-//leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        
+package leetcode.editor.cn;
+
+public class MergeSortedArray {
+    public static void main(String[] args) {
+        Solution solution = new MergeSortedArray().new Solution();
     }
-}
-//leetcode submit region end(Prohibit modification and deletion)
 
-  }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public void merge(int[] nums1, int m, int[] nums2, int n) {
+            int i = 0;
+            int j = 0;
+            int k = 0;
+            int[] result = new int[m + n];
+            while (i < m && j < n && k < m + n) {
+                if (nums1[i] < nums2[j]) {
+                    result[k++] = nums1[i++];
+                } else {
+                    result[k++] = nums2[j++];
+                }
+
+
+            }
+            if (i == m) {
+                while (j < n) {
+                    result[k++] = nums2[j++];
+                }
+            } else {
+                while (i < m) {
+                    result[k++] = nums1[i++];
+                }
+            }
+            int p = 0;
+            while (p < result.length) {
+                nums1[p] = result[p];
+                p++;
+            }
+
+
+        }
+
+    }
+    //leetcode submit region end(Prohibit modification and deletion)
+}
+
