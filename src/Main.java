@@ -25,10 +25,12 @@ public class Main {
         int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};
         int[] nums2 = new int[]{2, 5, 6};
 
-        //boolean flag=new Main().isValidBST();
+        List<List<Integer>> result = new Main().generate(5);
         System.out.println("done");
 
     }
+
+
 
 
 }
