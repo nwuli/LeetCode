@@ -22,15 +22,33 @@ public class Main {
         int tc = Integer.valueOf(c);
         int tb = Integer.parseInt(String.valueOf(c));
         int te = c - '0';
-        int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};
-        int[] nums2 = new int[]{2, 5, 6};
+        int[] prices = new int[]{1, 2, 3, 0, 2};
 
-        List<List<Integer>> result = new Main().generate(5);
+        int result = new Main().maxProfit(prices);
         System.out.println("done");
 
     }
 
+    public int maxProfit(int[] prices) {
+        if (prices.length == 0) return 0;
+        int[][] dp = new int[prices.length][2];
+        for (int i = 0; i < prices.length; i++) {
+            if (i == 0) {
+                dp[i][0] = 0;
+                dp[i][1] = -prices[i];
+                continue;
+            }
+            if (i == 1) {
+                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+                dp[i][1] = dp[i - 1][1];
+                continue;
+            }
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);//不动、卖出
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 2][0] - prices[i]);//不动、买进
+        }
+        return dp[prices.length - 1][0];
 
+    }
 
 
 }
