@@ -6,6 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Main {
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
     public static void main(String[] args) {
         HashMap<Integer, Integer> map = new HashMap<>();
         int[] number = new int[2];
@@ -22,32 +31,44 @@ public class Main {
         int tc = Integer.valueOf(c);
         int tb = Integer.parseInt(String.valueOf(c));
         int te = c - '0';
-        int[] prices = new int[]{1, 2, 3, 0, 2};
+        ListNode listNode1 = new Main().new ListNode(1);
+        ListNode listNode2 = new Main().new ListNode(0);
+        ListNode listNode3 = new Main().new ListNode(1);
 
-        int result = new Main().maxProfit(prices);
+        listNode1.next = listNode2;
+        listNode2.next = listNode3;
+        listNode3.next = null;
+
+        int[] array = new int[]{1,0,-1,0,-2,2};
+        new Main().quicksort(array, 0, array.length - 1);
         System.out.println("done");
 
     }
 
-    public int maxProfit(int[] prices) {
-        if (prices.length == 0) return 0;
-        int[][] dp = new int[prices.length][2];
-        for (int i = 0; i < prices.length; i++) {
-            if (i == 0) {
-                dp[i][0] = 0;
-                dp[i][1] = -prices[i];
-                continue;
+    public void quicksort(int[] array, int start, int end) {
+        if (start > end) return;
+        int i = start;
+        int j = end;
+        int base = array[start];
+        while (i < j) {
+            while (array[j] >= base && i < j) {
+                j--;
             }
-            if (i == 1) {
-                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
-                dp[i][1] = dp[i - 1][1];
-                continue;
+            while (array[i] <= base && i < j) {
+                i++;
             }
-            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);//不动、卖出
-            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 2][0] - prices[i]);//不动、买进
-        }
-        return dp[prices.length - 1][0];
 
+            if (i < j) {
+                //替换
+                int temp = array[j];
+                array[j] = array[i];
+                array[i] = temp;
+            }
+        }
+        array[start] = array[i];
+        array[i] = base;
+        quicksort(array, 0, i - 1);
+        quicksort(array, i + 1, end);
     }
 
 
