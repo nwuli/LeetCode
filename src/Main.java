@@ -1,4 +1,5 @@
 
+import leetcode.editor.cn.SwapNodesInPairs;
 import leetcode.editor.cn.ValidateBinarySearchTree;
 
 import java.util.ArrayList;
@@ -33,49 +34,39 @@ public class Main {
         int tb = Integer.parseInt(String.valueOf(c));
         int te = c - '0';
         ListNode listNode1 = new Main().new ListNode(1);
-        ListNode listNode2 = new Main().new ListNode(0);
-        ListNode listNode3 = new Main().new ListNode(1);
+        ListNode listNode2 = new Main().new ListNode(2);
+        ListNode listNode3 = new Main().new ListNode(3);
+        ListNode listNode4 = new Main().new ListNode(4);
 
         listNode1.next = listNode2;
         listNode2.next = listNode3;
-        listNode3.next = null;
+        listNode3.next = listNode4;
 
-        int[] array = new int[]{1, 1, 2, 2};
-        List<List<Integer>> result = new Main().permuteUnique(array);
+        ListNode result = new Main().swapPairs(listNode1);
         System.out.println("done");
 
     }
 
-    public List<List<Integer>> permuteUnique(int[] nums) {
-        //我们可以用一个列表来封装我们的带选项集合
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> tmp = new ArrayList<>();
-        List<Integer> base = new ArrayList<>();
-        Arrays.stream(nums).forEach(base::add);
-        if (nums.length == 0 || base == null) return result;
-        backtrack(result, base, tmp, 0);
-        return result;
-    }
+    public ListNode swapPairs(ListNode head) {
+        //需要3个节点
+        ListNode phead = new ListNode(-1);
+        phead.next = head;
+        ListNode pre, fast, slow;
+        pre = phead;
+        slow = head;
+        fast = head.next;
+        while (fast != null) {
+            slow.next = fast.next;
+            pre.next = fast;
+            fast.next = slow;
+            if (slow.next == null) break;
+            pre = slow;
+            slow = slow.next;
+            fast = slow.next;
 
-    public void backtrack(List<List<Integer>> result, List<Integer> base, List<Integer> tmp, int i) {
-        if (base.size() == 0) {
-            List<Integer> t = new ArrayList<>();
-            t.addAll(tmp);
-            result.add(t);
-            return;
         }
-        if (base.size() > 0) {
-            for (int j = 0; j < base.size(); j++) {
-                //如何去除重复元素
-                if (j > 0 && base.get(j) == base.get(j - 1)) continue;
-                List<Integer> tbase = new ArrayList<>(base);
-                tmp.add(base.get(j));
-                tbase.remove(base.get(j));
-                backtrack(result, tbase, tmp, j);
-                //回退最后一个元素
-                tmp.remove(tmp.size() - 1);
-            }
-        }
+
+        return phead.next;
 
     }
 
